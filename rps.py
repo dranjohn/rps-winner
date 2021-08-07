@@ -11,8 +11,10 @@ session.get(target_url)
 
 # Utilities for playing the game
 # Making one move
+move_pattern = re.compile(r"You picked (Rock|Paper|Scissors), I picked (Rock|Paper|Scissors)\.")
 def play(c):
-	session.post(target_url, data={ "action": c })
+	response = session.post(target_url, data={ "action": c })
+	return move_pattern.search(response.text).groups()[1]
 
 # The current score is displayed like <div style="font-size:40px">[score num here]</div>
 score_pattern = re.compile(r"40px\"\>(\d+)\<")
@@ -24,9 +26,8 @@ def get_score():
 
 
 # Play some time using the PRNG
-player = RandomPlayer()
-for c in player.play(40):
-	play(c)
+player = SelfPredictingPlayer(play, 3)
+player.play(play, 10**4)
 
 final_score = get_score()
 print(f"Enemy {final_score[0]} - {final_score[1]} Me")

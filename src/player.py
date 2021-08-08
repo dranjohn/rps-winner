@@ -98,11 +98,13 @@ class RandomPlayer(PatternPlayer):
 
 		super().__init__(random_pattern())
 
+
+# Player using the perfect pattern found using brute force
 class PerfectPlayer(PatternPlayer):
 	def __init__(self):
 		def perfect_pattern():
 			yield from [2, 1, 1, 0, 0, 2, 0, 2, 2, 1, 2, 0, 1, 1, 0, 0, 2, 2, 2, 1, 2, 0, 1]
-			
+
 			while True:
 				yield from [1, 0, 2]
 				

@@ -5,14 +5,6 @@ game_actions = ["Rock", "Paper", "Scissors"]
 
 # All my possible players
 
-# Player just using randomness
-class RandomPlayer():
-	def play(self, game, n=1):
-		for _ in range(n):
-		 	print(game.play(random.choice(game_actions)))
-
-		return
-
 
 # Player that predicts itself
 class SelfPredictingPlayer():
@@ -85,3 +77,34 @@ class BruteForcePlayer():
 			game.play(game_actions[self.moves[i % len(self.moves)]])
 		
 		return
+
+
+# A player simply repeating the given pattern
+class PatternPlayer():
+	def __init__(self, pattern):
+		self.pattern = pattern
+	
+	def play(self, game, n=1):
+		for _ in range(n):
+			game.play(game_actions[next(self.pattern)])
+
+
+# Player just using randomness
+class RandomPlayer(PatternPlayer):
+	def __init__(self):
+		def random_pattern():
+			while True:
+				yield random.choice([i for i in range(len(game_actions))])
+
+		super().__init__(random_pattern())
+
+class PerfectPlayer(PatternPlayer):
+	def __init__(self):
+		def perfect_pattern():
+			yield from [2, 1, 1, 0, 0, 2, 0, 2, 2, 1, 2, 0, 1, 1, 0, 0, 2, 2, 2, 1, 2, 0, 1]
+			
+			while True:
+				yield from [1, 0, 2]
+				
+
+		super().__init__(perfect_pattern())

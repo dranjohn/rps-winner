@@ -64,5 +64,10 @@ The current experimental runtime is around 60 seconds for 1000 rounds.
 This limits this approach to about 35 rounds in 60 seconds.
 
 This reveals a perfect strategy: Playing 2, 1, 1, 0, 0, 2, 0, 2, 2, 1, 2, 0, 1, 1, 0, 0, 2, 2, 2, 1, 2, 0, 1 followed by an infinite repitition of 1, 0, 2 wins every round.
-I can't prove it, but it worked on xxxx rounds.
+I can't prove it, but it worked on 1000 consecutive rounds.
 Playing manually in the browser reveals that a regular division by zero exception happens once the infinite pattern sets in.
+
+### 4. Perfect player
+This player simply uses the pattern found in the last attempt.
+
+And it works, but only for this precise AI and only in its current state.

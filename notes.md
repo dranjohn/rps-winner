@@ -50,3 +50,19 @@ The enemy then picks up on the bias towards Rock.
 Feedback on the enemy move has also been implemented,
 because I, for some reason, thought I'd need it.
 Maybe later.
+
+### 3. Brute-force player
+This player brute-forces the first $n$ actions taken by the enemy.
+
+This is a theoretically perfect strategy,
+but the behaviour of the AI may change over time (i.e. from one day to another).
+Brute-forcing from scratch takes $\mathcal{O}(n^2)$.
+When an 'incorrect' move has been taken, the game _has_ to be reset.
+Otherwise, the behaviour is altered for later rounds.
+
+The current experimental runtime is around 60 seconds for 1000 rounds.
+This limits this approach to about 35 rounds in 60 seconds.
+
+This reveals a perfect strategy: Playing 2, 1, 1, 0, 0, 2, 0, 2, 2, 1, 2, 0, 1, 1, 0, 0, 2, 2, 2, 1, 2, 0, 1 followed by an infinite repitition of 1, 0, 2 wins every round.
+I can't prove it, but it worked on xxxx rounds.
+Playing manually in the browser reveals that a regular division by zero exception happens once the infinite pattern sets in.

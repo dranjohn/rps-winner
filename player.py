@@ -54,3 +54,34 @@ class SelfPredictingPlayer():
 			self.move_patterns[self.last_moves] += 1
 
 		return
+
+
+# Player that brute-forces moves
+class BruteForcePlayer():
+	def __init__(self, game, max_move):
+		self.moves = [0 for _ in range(max_move)]
+
+		game.reset()
+
+		i = 0
+		while i < max_move:
+			enemy_move = game.play(game_actions[self.moves[i]])
+			enemy_move = game_actions.index(enemy_move)
+
+			if (3 + self.moves[i] - enemy_move) % 3 == 1:
+				# Correct move already taken
+				i += 1
+			else:
+				# Incorrect move, correct it and try again
+				self.moves[i] = (enemy_move + 1) % 3
+
+				i = 0
+				game.reset()
+		
+		game.reset()
+
+	def play(self, game, n=1):
+		for i in range(n):
+			game.play(game_actions[self.moves[i % len(self.moves)]])
+		
+		return
